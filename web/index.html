@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whale Sounds</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            text-align: center;
+            padding: 20px;
+            margin: 0; /* Added to remove default margin */
+            background-image: url('/static/img/humpback-whale-001.jpg'); /* Path to your image */
+            background-size: cover;
+            background-position: 0% center; /* Start and end at the far left */
+            background-repeat: no-repeat; /* Prevent the image from repeating */
+            background-attachment: fixed; /* Keep the image fixed during scrolling */
+            animation: slideSideToSide 20s infinite alternate ease-in-out; /* Apply the new animation */
+        }
+
+        @keyframes slideSideToSide {
+            0%, 100% {
+                background-position: 0% center; /* Start and end at the far left */
+            }
+            50% {
+                background-position: 100% center; /* Move to the far right at the midpoint */
+            }
+        }
+
+        #connectionInfo {
+            font-family: monospace;
+            font-size: 16px;
+            background-color: #e0e0e0;
+            border: none;
+            width: 20%;
+            margin: auto; /* Centering the output box */
+            overflow-wrap: break-word;
+
+        }
+
+        #userCount {
+            font-weight: bold;
+            color: #555; /* Slightly lighter text for contrast */
+        }
+
+        #output {
+            color: #666; /* Even lighter for less focus */
+
+        }
+    </style>
+</head>
+
+<body>
+
+    <h2>Welcome to Whale Sounds.org!</h2>
+    <div id="connectionInfo">
+        <div id="userCount">Connected Users: <span id="userCountValue">0</span></div>
+        <div id="output"></div>
+    </div>
+    
+
+    <script>
+        window.onload = function () {
+            if (!window["WebSocket"]) {
+                document.getElementById("output").innerHTML = "WebSockets are not supported by your browser.";
+                return;
+            }
+
+            console.log("supports websockets");
+            var output = document.getElementById("output");
+            var userCount = document.getElementById("userCountValue");
+            var socket = new WebSocket("ws://" + document.location.host + "/ws");
+
+            socket.onopen = function () {
+                output.innerHTML += "Status: Connected\n";
+                socket.send("New Connection!");
+            };
+
+            socket.onmessage = function (e) {
+                console.log("message received from server: " + e.data);
+                // Assuming the server sends user count updates in a specific format
+                if (e.data.startsWith("UserCount:")) {
+                    userCount.innerHTML = e.data.split(":")[1].trim();
+                } else {
+                    output.innerHTML += "Received from Server: " + e.data + "\n";
+                }
+            };
+
+            socket.onerror = function (e) {
+                console.log("websocket error: " + e);
+            };
+
+            socket.onclose = function (e) {
+                console.log("Websocket closed");
+            };
+        }
+    </script>
+
+</body>
+
+</html>

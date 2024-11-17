@@ -31,7 +31,7 @@ func main() {
 	http.HandleFunc("/ws", func(w http.ResponseWriter, r *http.Request) {
 		conn, err := upgrader.Upgrade(w, r, nil)
 		if err != nil {
-			fmt.Println(err)
+			fmt.Println("Upgrade error:", err)
 			return
 		}
 		defer conn.Close()
@@ -44,23 +44,21 @@ func main() {
 		lock.Unlock()
 
 		for {
-			// Read message from browser
 			_, msg, err := conn.ReadMessage()
 			if err != nil {
 				lock.Lock()
-				delete(connections, id) // Remove connection 
+				delete(connections, id)
 				broadcastTotalConnections()
 				lock.Unlock()
 
-				fmt.Println("Error reading message:", err)
+				if websocket.IsCloseError(err, websocket.CloseNormalClosure) {
+					fmt.Println("Normal closure:", err)
+				} else if websocket.IsUnexpectedCloseError(err, websocket.CloseGoingAway, websocket.CloseAbnormalClosure) {
+					fmt.Printf("Unexpected close error: %v\n", err)
+				} else {
+					fmt.Println("Other error:", err)
+				}
 				return
-			}
-			if string(msg) == "Websocket closed" {
-				// If disconenct message is sent without error (Will this actually happen?)
-				lock.Lock()
-				connections[id] = conn
-				broadcastTotalConnections()
-				lock.Unlock()
 			} else {
 				fmt.Printf("received from %s: %s\n", conn.RemoteAddr(), string(msg))
 			}
@@ -75,6 +73,6 @@ func main() {
 	fs := http.FileServer(http.Dir("web"))
 	http.Handle("/static/", http.StripPrefix("/static/", fs))
 
-
+	log.Println("Started server on port 8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }

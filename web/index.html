@@ -73,7 +73,6 @@
         <div id="output"></div>
     </div>
 
-
     <script>
         window.onload = function () {
             if (!window["WebSocket"]) {
@@ -101,19 +100,19 @@
             };
 
             socket.onerror = function (e) {
-                console.log("websocket error: " + e);
+                console.log("websocket error: " + e.reason);
                 output.innerHTML += "Connection error\n";
             };
 
             socket.onclose = function (e) {
                 console.log("Websocket closed with code:", e.code, "reason:", e.reason);
                 output.innerHTML = "Status: Disconnected\n";
-                if (e.code !== 1000) { 
+                if (e.code !== 1000) {
                     // non-normal closure
-                    setTimeout(function () {
-                        console.log("Attempting to reconnect...");
-                        window.onload(); // reinit the connection
-                    }, 5000);
+                    // setTimeout(function () {
+                    //     console.log("Attempting to reconnect...");
+                    //     // window.onload(); // reinit the connection
+                    // }, 5000);
                 }
             };
 

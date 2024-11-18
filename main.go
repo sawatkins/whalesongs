@@ -58,9 +58,11 @@ func main() {
 				} else {
 					fmt.Println("Other error:", err)
 				}
+				fmt.Printf("total connections: %d\n", len(connections))
 				return
 			} else {
 				fmt.Printf("received from %s: %s\n", conn.RemoteAddr(), string(msg))
+				fmt.Printf("total connections: %d\n", len(connections))
 			}
 		}
 	})

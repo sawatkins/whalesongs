@@ -121,7 +121,29 @@
                 socket.close(1000, "Normal closure");
             };
 
-        }
+
+            // WHALE BACKGROUND CHANGE CODE
+            const images = [
+                '/static/img/original/whale_01.jpg',
+                '/static/img/original/whale_02.jpg',
+                '/static/img/original/whale_03.jpg',
+                '/static/img/original/whale_04.jpg',
+                '/static/img/original/whale_05.jpg',
+                '/static/img/original/whale_06.jpg',
+                '/static/img/original/whale_07.jpg',
+                '/static/img/original/whale_08.jpg',
+            ];
+
+            let currentIndex = 0;
+            const changeBackgroundImage = () => {
+                console.log("changing background:", `url('${images[currentIndex]}')`)
+                document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
+                currentIndex = (currentIndex + 1) % images.length;
+            };
+
+            setInterval(changeBackgroundImage, 10000); //10 seconds
+            changeBackgroundImage();
+        };
     </script>
 
 </body>

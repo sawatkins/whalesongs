@@ -10,24 +10,49 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             text-align: center;
             margin: 0;
+            padding: 0;
             min-height: 100vh;
+            background-color: #000;
+            overflow: hidden;
+        }
+
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        .background-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .background-image {
+            width: 100%;
+            height: 100%;
+            background-size: contain;
             background-position: center;
-            background-size: cover;
             background-repeat: no-repeat;
-            animation: zoomEffect 10s ease-in-out infinite;
+            animation: zoomEffect 15s ease-in-out infinite;
         }
 
         @keyframes zoomEffect {
             0% {
-                background-size: 100%
+                transform: scale(1);
             }
 
             50% {
-                background-size: 105%
+                transform: scale(1.10);
             }
 
             100% {
-                background-size: 100%
+                transform: scale(1);
             }
         }
 
@@ -40,34 +65,31 @@
             margin: auto;
             /* Centering the output box */
             overflow-wrap: break-word;
-
         }
 
         #userCount {
             font-weight: bold;
             color: #555;
-            /* Slightly lighter text for contrast */
         }
 
         #output {
             color: #666;
-            /* Even lighter for less focus */
-
         }
     </style>
 </head>
 
 <body>
-
     <h2>Welcome to Whale Sounds.org!</h2>
     <div id="connectionInfo">
         <div id="userCount">Connected Users: <span id="userCountValue">0</span></div>
         <div id="output"></div>
     </div>
 
+    <div class="background-container">
+        <div class="background-image" id="backgroundImage"></div>
+    </div>
+
     <script>
-
-
         window.onload = function () {
             if (!window["WebSocket"]) {
                 document.getElementById("output").innerHTML = "WebSockets are not supported by your browser.";
@@ -128,12 +150,12 @@
             ];
 
             let currentIndex = 0;
+            let backgroundImage = document.getElementById('backgroundImage');
 
             const changeBackgroundImage = () => {
-                document.body.style.backgroundImage = `url('${images[currentIndex]}')`;
+                backgroundImage.style.backgroundImage = `url('${images[currentIndex]}')`;
                 currentIndex = (currentIndex + 1) % images.length;
             };
-
 
             // Preload all images
             images.forEach(src => {
@@ -141,7 +163,7 @@
                 img.src = src;
             });
 
-            setInterval(changeBackgroundImage, 10000); //10 seconds
+            setInterval(changeBackgroundImage, 10000); // 10 seconds
             changeBackgroundImage();
 
         };

@@ -140,20 +140,33 @@
 
             // WHALE BACKGROUND CHANGE CODE
             const images = [
-                '/static/img/original/whale_01.jpg',
+                // '/static/img/original/whale_01.jpg',
                 '/static/img/original/whale_03.jpg',
                 '/static/img/original/whale_04.jpg',
                 '/static/img/original/whale_05.jpg',
                 '/static/img/original/whale_06.jpg',
-                '/static/img/original/whale_07.jpg',
-                '/static/img/original/whale_08.jpg',
+                // '/static/img/original/whale_07.jpg',
+                // '/static/img/original/whale_08.jpg',
             ];
+
+            // currently 68% darkend from average img color
+            const darkAverageColors = [
+                // "#000",     // whale_01 #0b182d
+                "#091324",  // whale_03 #1c3c71 #0b182d
+                "#07131e",  // whale_04 #163b5f #091826
+                "#071624",  // whale_05 #164570 #091c2d
+                "#081021",  // whale_06 #142852
+                // "#000",     // whale_07
+                // "#000",     // whale_08
+            ]
 
             let currentIndex = 0;
             let backgroundImage = document.getElementById('backgroundImage');
 
             const changeBackgroundImage = () => {
                 backgroundImage.style.backgroundImage = `url('${images[currentIndex]}')`;
+                document.body.style.backgroundColor = darkAverageColors[currentIndex];
+                console.log("changing image to:", images[currentIndex]);
                 currentIndex = (currentIndex + 1) % images.length;
             };
 

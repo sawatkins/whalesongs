@@ -7,7 +7,7 @@
     <title>Whale Sounds</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: monospace;
             text-align: center;
             margin: 0;
             padding: 0;
@@ -15,14 +15,14 @@
             background-color: #000;
             overflow: hidden;
         }
-
+    
         html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
         }
-
+    
         .background-container {
             position: fixed;
             top: 0;
@@ -32,61 +32,137 @@
             z-index: -1;
             overflow: hidden;
         }
-
+    
         .background-image {
             width: 100%;
             height: 100%;
-            background-size: contain;
+            background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
             animation: zoomEffect 15s ease-in-out infinite;
         }
-
+    
         @keyframes zoomEffect {
             0% {
                 transform: scale(1);
             }
-
+    
             50% {
                 transform: scale(1.10);
             }
-
+    
             100% {
                 transform: scale(1);
             }
         }
-
+    
         #connectionInfo {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 0.3em;
             font-family: monospace;
-            font-size: 16px;
+            font-size: 0.8vw; /* Smaller font size */
             background-color: #e0e0e0;
             border: none;
-            width: 20%;
+            width: 30%; /* Smaller width */
             margin: auto;
-            /* Centering the output box */
             overflow-wrap: break-word;
+            opacity: 80%;
+            border-radius: 4px;
         }
-
+    
+        #title {
+            color: #555;
+            font-weight: bold;
+            font-size: 1.2vw; /* Smaller font size */
+        }
+    
         #userCount {
             font-weight: bold;
             color: #555;
         }
-
+    
         #output {
             color: #666;
+        }
+    
+        #footer {
+            color: #555;
+            line-height: 1em; /* Adjust line height for better spacing */
+            text-decoration: underline;
+            font-size: 0.8vw; /* Smaller font size */
+            position: fixed;
+            bottom: 10px;
+            width: 30%; /* Smaller width */
+            text-align: center;
+            background-color: #e0e0e0;
+            opacity: 80%;
+            border-radius: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 3px 0; /* Reduced padding */
+        }
+    
+        #footer p {
+            margin: 2px 0px; /* Reduced margin */
+        }
+    
+        /* Media query for smaller screens */
+        @media (max-width: 900px) {
+            #connectionInfo, #footer {
+                width: 50%; /* Adjust width for medium screens */
+                font-size: 1.5vw; /* Adjust font size for readability */
+            }
+    
+            #title {
+                font-size: 2.5vw; /* Adjust font size for readability */
+            }
+        }
+
+        @media (max-width: 600px) {
+            #connectionInfo, #footer {
+                width: 70%; /* Adjust width for smaller screens */
+                font-size: 2.5vw; /* Adjust font size for readability */
+            }
+    
+            #title {
+                font-size: 3.5vw; /* Adjust font size for readability */
+            }
+        }
+
+        @media (max-width: 400px) {
+            #connectionInfo, #footer {
+                width: 90%; /* Adjust width for very small screens */
+                font-size: 3.5vw; /* Adjust font size for readability */
+            }
+    
+            #title {
+                font-size: 4.5vw; /* Adjust font size for readability */
+            }
         }
     </style>
 </head>
 
 <body>
-    <h2>Welcome to Whale Sounds.org!</h2>
+    
     <div id="connectionInfo">
+        <div id="title">Welcome to Whale Sounds.org!</div>
         <div id="userCount">Connected Users: <span id="userCountValue">0</span></div>
         <div id="output"></div>
     </div>
 
     <div class="background-container">
         <div class="background-image" id="backgroundImage"></div>
+    </div>
+
+    <div id="footer">
+        <p>
+            <span>About</span><br>
+            <span>Image Details</span><br>
+            <span>Audio Details</span> 
+        </p>
     </div>
 
     <script>

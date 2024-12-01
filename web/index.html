@@ -15,14 +15,14 @@
             background-color: #000;
             overflow: hidden;
         }
-    
+
         html {
             margin: 0;
             padding: 0;
             height: 100%;
             width: 100%;
         }
-    
+
         .background-container {
             position: fixed;
             top: 0;
@@ -32,7 +32,7 @@
             z-index: -1;
             overflow: hidden;
         }
-    
+
         .background-image {
             width: 100%;
             height: 100%;
@@ -41,21 +41,21 @@
             background-repeat: no-repeat;
             animation: zoomEffect 15s ease-in-out infinite;
         }
-    
+
         @keyframes zoomEffect {
             0% {
                 transform: scale(1);
             }
-    
+
             50% {
                 transform: scale(1.10);
             }
-    
+
             100% {
                 transform: scale(1);
             }
         }
-    
+
         #connectionInfo {
             position: absolute;
             top: 10px;
@@ -63,90 +63,129 @@
             transform: translateX(-50%);
             padding: 0.3em;
             font-family: monospace;
-            font-size: 0.8vw; /* Smaller font size */
+            font-size: 0.8vw;
             background-color: #e0e0e0;
             border: none;
-            width: 30%; /* Smaller width */
+            width: 30%;
             margin: auto;
             overflow-wrap: break-word;
             opacity: 80%;
             border-radius: 4px;
         }
-    
+
         #title {
             color: #555;
             font-weight: bold;
-            font-size: 1.2vw; /* Smaller font size */
+            font-size: 1.2vw;
         }
-    
+
         #userCount {
             font-weight: bold;
             color: #555;
         }
-    
+
         #output {
             color: #666;
         }
-    
+
+        #infoBox {
+            background-color: #e0e0e0;
+            border-radius: 4px;
+            opacity: 80%;
+            color: #555;
+
+            width: 28%;
+            padding: 0.3em;
+            font-size: 0.8vw;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        #closeButton {
+            text-decoration: underline;
+            font-size: 0.5vw;
+        }
+
+        #closeButton:hover {
+            cursor: pointer;
+            color: #222;
+        }
+
         #footer {
             color: #555;
-            line-height: 1em; /* Adjust line height for better spacing */
-            text-decoration: underline;
-            font-size: 0.8vw; /* Smaller font size */
+            line-height: 1em;
+            font-size: 0.8vw;
             position: fixed;
             bottom: 10px;
-            width: 30%; /* Smaller width */
+            width: 30%;
             text-align: center;
             background-color: #e0e0e0;
             opacity: 80%;
             border-radius: 4px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 3px 0; /* Reduced padding */
+            padding: 3px 0;
         }
-    
+
         #footer p {
-            margin: 2px 0px; /* Reduced margin */
+            margin: 2px 0px;
         }
-    
-        /* Media query for smaller screens */
+
+        .footerButton {
+            text-decoration: underline;
+        }
+
+        .footerButton:hover {
+            cursor: pointer;
+            color: #222;
+        }
+
         @media (max-width: 900px) {
-            #connectionInfo, #footer {
-                width: 50%; /* Adjust width for medium screens */
-                font-size: 1.5vw; /* Adjust font size for readability */
+
+            #connectionInfo,
+            #footer {
+                width: 50%;
+                font-size: 1.5vw;
             }
-    
+
             #title {
-                font-size: 2.5vw; /* Adjust font size for readability */
+                font-size: 2.5vw;
             }
         }
 
         @media (max-width: 600px) {
-            #connectionInfo, #footer {
-                width: 70%; /* Adjust width for smaller screens */
-                font-size: 2.5vw; /* Adjust font size for readability */
+
+            #connectionInfo,
+            #footer {
+                width: 70%;
+                font-size: 2.5vw;
             }
-    
+
             #title {
-                font-size: 3.5vw; /* Adjust font size for readability */
+                font-size: 3.5vw;
             }
         }
 
         @media (max-width: 400px) {
-            #connectionInfo, #footer {
-                width: 90%; /* Adjust width for very small screens */
-                font-size: 3.5vw; /* Adjust font size for readability */
+
+            #connectionInfo,
+            #footer {
+                width: 90%;
+                font-size: 3.5vw;
             }
-    
+
             #title {
-                font-size: 4.5vw; /* Adjust font size for readability */
+                font-size: 4.5vw;
             }
         }
     </style>
 </head>
 
 <body>
-    
+
     <div id="connectionInfo">
         <div id="title">Welcome to Whale Sounds.org!</div>
         <div id="userCount">Connected Users: <span id="userCountValue">0</span></div>
@@ -157,15 +196,50 @@
         <div class="background-image" id="backgroundImage"></div>
     </div>
 
+    <div id="infoBox" style="display: none;">
+        <p id="aboutInfo" style="display: none;">aboutInfo</p>
+        <p id="imageInfo" style="display: none;">imageInfo</p>
+        <p id="audioInfo" style="display: none;">audioInfo</p>
+        <p id="closeButton" onclick="closeInfoBox()">close</p>
+    </div>
+
     <div id="footer">
         <p>
-            <span>About</span><br>
-            <span>Image Details</span><br>
-            <span>Audio Details</span> 
+            <span class="footerButton" onclick="toggleInfoBox('aboutInfo')">About</span>&nbsp;&nbsp;
+            <span class="footerButton" onclick="toggleInfoBox('imageInfo')">Image Details</span>&nbsp;&nbsp;
+            <span class="footerButton" onclick="toggleInfoBox('audioInfo')">Audio Details</span>
         </p>
     </div>
 
     <script>
+        // INFOBOX TOGGLE
+        function closeInfoBox() {
+            const infoBox = document.getElementById('infoBox');
+            infoBox.style.display = 'none';
+        }
+
+        function toggleInfoBox(infoId) {
+            const infoBox = document.getElementById('infoBox');
+            const infoParagraphs = infoBox.querySelectorAll('p');
+            let targetParagraph = document.getElementById(infoId);
+
+            infoParagraphs.forEach(p => {
+                if (p.id != 'closeButton') {
+                    p.style.display = 'none';
+                }
+            });
+
+            if (targetParagraph.style.display === 'none' || targetParagraph.style.display === '') {
+                targetParagraph.style.display = 'block';
+                infoBox.style.display = 'block';
+            } else {
+                targetParagraph.style.display = 'none';
+                infoBox.style.display = 'none';
+            }
+
+
+        }
+
         window.onload = function () {
             if (!window["WebSocket"]) {
                 document.getElementById("output").innerHTML = "WebSockets are not supported by your browser.";
@@ -212,6 +286,8 @@
                 // socket.send("Normal closure");
                 socket.close(1000, "Normal closure");
             };
+
+
 
 
             // WHALE BACKGROUND CHANGE CODE

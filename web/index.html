@@ -140,60 +140,72 @@
         }
 
         @media (max-width: 1200px) {
+
             #connectionInfo,
             #footer {
                 width: 40%;
             }
+
             #infoBox {
                 width: 38%;
             }
         }
 
         @media (max-width: 1000px) {
+
             #connectionInfo,
             #footer {
                 width: 50%;
             }
+
             #infoBox {
                 width: 48%;
             }
         }
 
         @media (max-width: 800px) {
+
             #connectionInfo,
             #footer {
                 width: 60%;
             }
+
             #infoBox {
                 width: 58%;
             }
         }
 
         @media (max-width: 600px) {
+
             #connectionInfo,
             #footer {
                 width: 70%;
             }
+
             #infoBox {
                 width: 68%;
             }
         }
 
         @media (max-width: 500px) {
+
             #connectionInfo,
             #footer {
                 width: 80%;
             }
+
             #infoBox {
                 width: 78%;
             }
         }
 
         @media (max-width: 400px) {
+
             #connectionInfo,
             #footer {
                 width: 90%;
             }
+
             #infoBox {
                 width: 88%;
             }
@@ -214,17 +226,18 @@
     </div>
 
     <div id="infoBox" style="display: none;">
-        <p id="aboutInfo" style="display: none;">aboutInfo</p>
+        <p id="aboutInfo" style="display: none;"><span style="font-weight: bold;">About</span><br><br>Welcome to whale
+            sounds. See how many other people are listening with you!</p>
         <p id="imageInfo" style="display: none;">imageInfo</p>
-        <p id="audioInfo" style="display: none;">audioInfo</p>
+        <p id="audioInfo" style="display: none;"><span style="font-weight: bold;">Audio Info</span><br></p>
         <p id="closeButton" onclick="closeInfoBox()">close</p>
     </div>
 
     <div id="footer">
         <p>
             <span class="footerButton" onclick="toggleInfoBox('aboutInfo')">About</span>&nbsp;&nbsp;
-            <span class="footerButton" onclick="toggleInfoBox('imageInfo')">Image Details</span>&nbsp;&nbsp;
-            <span class="footerButton" onclick="toggleInfoBox('audioInfo')">Audio Details</span>
+            <span class="footerButton" onclick="toggleInfoBox('imageInfo')">Image Info</span>&nbsp;&nbsp;
+            <span class="footerButton" onclick="toggleInfoBox('audioInfo')">Audio Info</span>
         </p>
     </div>
 
@@ -243,7 +256,7 @@
             infoParagraphs.forEach(p => {
                 if (p.id !== 'closeButton' && p.id !== infoId) {
                     p.style.display = 'none';
-                }   
+                }
             });
 
             targetParagraph.style.display = 'block';
@@ -317,7 +330,7 @@
                 "#091324",  // whale_03 #1c3c71 #0b182d
                 "#07131e",  // whale_04 #163b5f #091826
                 "#071624",  // whale_05 #164570 #091c2d
-                "#081021",  // whale_06 #142852
+                "#081021",  // whale_06 #14282
                 // "#000",     // whale_07
                 // "#000",     // whale_08
             ]
@@ -325,11 +338,70 @@
             let currentIndex = 0;
             let backgroundImage = document.getElementById('backgroundImage');
 
+            let imageInfo = {
+                'whale_01.jpg': {
+                    photographer: "Oliver Tsappis",
+                    photographerLink: "https://www.otsapp.photography",
+                    unsplashLink: "https://unsplash.com/photos/a-humpback-whale-swims-beneath-the-surface-of-the-water-m3KT9kpfWdk"
+                },
+                'whale_02.jpg': {
+                    photographer: "Oliver Tsappis",
+                    photographerLink: "https://www.otsapp.photography",
+                    unsplashLink: "https://unsplash.com/photos/a-humpback-whale-swimming-in-the-ocean-c3i5spS4ETI"
+                },
+                'whale_03.jpg': {
+                    photographer: "Chinh Le Duc",
+                    photographerLink: "https://www.instagram.com/mero_dnt",
+                    unsplashLink: "https://unsplash.com/photos/a-humpback-whale-swims-under-the-surface-of-the-water-P19iVmm7XUA"
+                },
+                'whale_04.jpg': {
+                    photographer: "Chinh Le Duc",
+                    photographerLink: "https://www.instagram.com/mero_dnt",
+                    unsplashLink: "https://unsplash.com/photos/a-humpback-whale-swims-under-the-surface-of-the-water-8t9uyncwnHc"
+                },
+                'whale_05.jpg': {
+                    photographer: "Chinh Le Duc",
+                    photographerLink: "https://www.instagram.com/mero_dnt",
+                    unsplashLink: "https://unsplash.com/photos/a-humpback-whale-swims-under-the-water-WeUIHNHbs6o"
+                },
+                'whale_06.jpg': {
+                    photographer: "Chinh Le Duc",
+                    photographerLink: "https://www.instagram.com/mero_dnt",
+                    unsplashLink: "https://unsplash.com/photos/two-humpback-whales-swimming-in-the-ocean-9YvSsGDZHmw"
+                },
+                'whale_07.jpg': {
+                    photographer: "Chinh Le Duc",
+                    photographerLink: "https://www.instagram.com/mero_dnt",
+                    unsplashLink: "https://unsplash.com/photos/9FylfaR-X3g"
+                },
+                'whale_08.jpg': {
+                    photographer: "Swanson Chan",
+                    photographerLink: "https://unsplash.com/@alien_spaceship",
+                    unsplashLink: "https://unsplash.com/photos/black-and-white-fish-in-water-wG2rXmRgyVA"
+                }
+            };
+
+            const changeImageInfoBox = (filename) => {
+                let imageParagraph = document.getElementById('imageInfo');
+                const imgInfo = imageInfo[filename]
+                // attribution
+                imageParagraph.innerHTML = `<span style='font-weight: bold;'>Image Info</span><br><br>
+                    Photographer: <a href="${imgInfo.photographerLink}" target="_blank">${imgInfo.photographer}</a><br>
+                    <a href="${imgInfo.unsplashLink}" target="_blank">View on Unsplash</a><br>
+                    <a href="https://unsplash.com/license" target="_blank">Unsplash License</a>
+                `
+
+            }
+
             const changeBackgroundImage = () => {
                 backgroundImage.style.backgroundImage = `url('${images[currentIndex]}')`;
                 document.body.style.backgroundColor = darkAverageColors[currentIndex];
                 console.log("changing image to:", images[currentIndex]);
                 currentIndex = (currentIndex + 1) % images.length;
+
+                // change imageInfo text
+                var filename = images[currentIndex].split('/').pop();
+                changeImageInfoBox(filename)
             };
 
             // Preload all images

@@ -63,7 +63,7 @@
             transform: translateX(-50%);
             padding: 0.3em;
             font-family: monospace;
-            font-size: 0.8vw;
+            font-size: 14px;
             background-color: #e0e0e0;
             border: none;
             width: 30%;
@@ -76,7 +76,7 @@
         #title {
             color: #555;
             font-weight: bold;
-            font-size: 1.2vw;
+            font-size: 18px;
         }
 
         #userCount {
@@ -93,10 +93,9 @@
             border-radius: 4px;
             opacity: 80%;
             color: #555;
-
             width: 28%;
             padding: 0.3em;
-            font-size: 0.8vw;
+            font-size: 14px;
             position: absolute;
             top: 50%;
             left: 50%;
@@ -106,7 +105,7 @@
 
         #closeButton {
             text-decoration: underline;
-            font-size: 0.5vw;
+            font-size: 12px;
         }
 
         #closeButton:hover {
@@ -117,7 +116,7 @@
         #footer {
             color: #555;
             line-height: 1em;
-            font-size: 0.8vw;
+            font-size: 14px;
             position: fixed;
             bottom: 10px;
             width: 30%;
@@ -140,42 +139,63 @@
             color: #222;
         }
 
-        @media (max-width: 900px) {
+        @media (max-width: 1200px) {
+            #connectionInfo,
+            #footer {
+                width: 40%;
+            }
+            #infoBox {
+                width: 38%;
+            }
+        }
 
+        @media (max-width: 1000px) {
             #connectionInfo,
             #footer {
                 width: 50%;
-                font-size: 1.5vw;
             }
+            #infoBox {
+                width: 48%;
+            }
+        }
 
-            #title {
-                font-size: 2.5vw;
+        @media (max-width: 800px) {
+            #connectionInfo,
+            #footer {
+                width: 60%;
+            }
+            #infoBox {
+                width: 58%;
             }
         }
 
         @media (max-width: 600px) {
-
             #connectionInfo,
             #footer {
                 width: 70%;
-                font-size: 2.5vw;
             }
+            #infoBox {
+                width: 68%;
+            }
+        }
 
-            #title {
-                font-size: 3.5vw;
+        @media (max-width: 500px) {
+            #connectionInfo,
+            #footer {
+                width: 80%;
+            }
+            #infoBox {
+                width: 78%;
             }
         }
 
         @media (max-width: 400px) {
-
             #connectionInfo,
             #footer {
                 width: 90%;
-                font-size: 3.5vw;
             }
-
-            #title {
-                font-size: 4.5vw;
+            #infoBox {
+                width: 88%;
             }
         }
     </style>

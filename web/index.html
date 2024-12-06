@@ -241,20 +241,13 @@
             let targetParagraph = document.getElementById(infoId);
 
             infoParagraphs.forEach(p => {
-                if (p.id != 'closeButton') {
+                if (p.id !== 'closeButton' && p.id !== infoId) {
                     p.style.display = 'none';
-                }
+                }   
             });
 
-            if (targetParagraph.style.display === 'none' || targetParagraph.style.display === '') {
-                targetParagraph.style.display = 'block';
-                infoBox.style.display = 'block';
-            } else {
-                targetParagraph.style.display = 'none';
-                infoBox.style.display = 'none';
-            }
-
-
+            targetParagraph.style.display = 'block';
+            infoBox.style.display = 'block';
         }
 
         window.onload = function () {

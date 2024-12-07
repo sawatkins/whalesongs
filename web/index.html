@@ -39,7 +39,7 @@
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            animation: zoomEffect 15s ease-in-out infinite;
+            animation: zoomEffect 90s ease-in-out infinite;
         }
 
         @keyframes zoomEffect {
@@ -101,6 +101,8 @@
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
+            padding-left: 1em;
+            padding-right: 1em;
         }
 
         #closeButton {
@@ -126,7 +128,7 @@
             border-radius: 4px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 3px 0;
+            padding: 0.3em
         }
 
         #footer p {
@@ -137,6 +139,33 @@
             text-decoration: underline;
             cursor: pointer;
             color: #222;
+        }
+
+        #playPauseButton {
+            transition: background 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        #playPauseButton:hover {
+            background: rgba(255, 255, 255, 1);
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+        }
+
+        #playPauseButton:active {
+            transform: translateY(-2px);
+            /* Adjusted for visual effect */
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        a {
+            color: indianred;
+        }
+
+        a:hover {
+            color: brown;
+        }
+
+        a:visited {
+            color: indianred;
         }
 
         @media (max-width: 1200px) {
@@ -236,13 +265,30 @@
     <div id="footer">
         <!-- ▶ ⏵-->
         <div id="customAudioPlayer"
-            style="padding: 10px; display: flex; align-items: center; justify-content: center; gap: 15px;">
-            <button id="playPauseButton" style="color: #3d3d3d;">►</button> 
-            <span><span id="currentTime">0:00</span> / <span id="duration">0:00</span></span>
-            <!-- <span style="text-decoration: underline;">new section ⏵</span> -->
+            style="padding-top: 0.4em; padding-bottom: 0.6em; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            <button id="playPauseButton" style="
+            width: 32px; 
+            height: 32px; 
+            padding: 0; 
+            border: none; 
+            background: rgba(255, 255, 255, 0.9); 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.2s ease;
+            ">
+                <img src="/static/play.svg" alt="Play" id="playIcon"
+                    style="width: 16px; height: 16px; margin-left: 3.05px;">
+                <img src="/static/pause.svg" alt="Pause" id="pauseIcon"
+                    style="width: 16px; height: 16px; display: none; ">
+            </button>
+            <span style="margin-top: 3px;"><span id="currentTime">0:00</span> / <span id="duration">0:00</span></span>
         </div>
-        <audio id="audioElement" style="display: none;">
-            <source id="audioSource" src="/static/song/humpback-01.m4a" type="audio/mpeg">
+        <audio id="audioElement" preload="auto" style="display: none;">
+            <source id="audioSource" src="/static/song/humpback-01.m4a" type="audio/x-m4a">
             Your browser does not support the audio element.
         </audio>
 
@@ -260,12 +306,17 @@
         const durationDisplay = document.getElementById('duration');
 
         playPauseButton.addEventListener('click', () => {
+            const playIcon = document.getElementById('playIcon');
+            const pauseIcon = document.getElementById('pauseIcon');
+
             if (audioElement.paused) {
                 audioElement.play();
-                playPauseButton.textContent = 'II';
+                playIcon.style.display = 'none';
+                pauseIcon.style.display = 'block';
             } else {
                 audioElement.pause();
-                playPauseButton.textContent = '►';
+                playIcon.style.display = 'block';
+                pauseIcon.style.display = 'none';
             }
         });
 
@@ -430,7 +481,7 @@
                 imageParagraph.innerHTML = `<span style='font-weight: bold;'>Image Info</span><br><br>
                     Photo by <a href="${imgInfo.photographerLink}" target="_blank">${imgInfo.photographer}</a> on 
                     <a href="${imgInfo.unsplashLink}" target="_blank">Unsplash</a><br>
-                    <a href="https://unsplash.com/license" target="_blank">License</a>
+                    <a href="https://unsplash.com/license" target="_blank" style="font-size: 12px">Unsplash License</a>
                 `
             }
 
@@ -451,7 +502,7 @@
                 img.src = src;
             });
 
-            setInterval(changeBackgroundImage, 10000); // 10 seconds
+            setInterval(changeBackgroundImage, 30000); // 10 seconds (10000)
             changeBackgroundImage();
 
         };

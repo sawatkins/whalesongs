@@ -61,16 +61,27 @@
             top: 10px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 0.3em;
+
             font-family: monospace;
             font-size: 14px;
-            background-color: #e0e0e0;
+
             border: none;
             width: 30%;
             margin: auto;
             overflow-wrap: break-word;
-            opacity: 80%;
+
+            transition: transform 0.3s ease;
+        }
+
+        #connectionInfo.hidden {
+            transform: translate(-50%, -75%);
+        }
+
+        #connInfoBG {
+            background-color: #e0e0e0;
             border-radius: 4px;
+            opacity: 80%;
+            padding: 0.7em;
         }
 
         #title {
@@ -86,6 +97,22 @@
 
         #output {
             color: #666;
+        }
+
+        #hideButton {
+            padding: 0.2em;
+        }
+
+        #hideButton img {
+            margin: 3px;
+            padding: 7px;
+            border-radius: 50%;
+            transition: background-color 0.1s ease;
+        }
+
+        #hideButton img:hover {
+            background-color: rgba(148, 148, 148, 0.5);
+            cursor: pointer;
         }
 
         #infoBox {
@@ -128,12 +155,20 @@
             border-radius: 4px;
             left: 50%;
             transform: translateX(-50%);
-            padding: 0.3em
+            padding: 0.3em;
+            padding-bottom: 0.4em;
+            transition: transform 0.3s ease;
+
+        }
+
+        #footer.hidden {
+            transform: translate(-50%, 150%);
         }
 
         #footer p {
             margin: 2px 0px;
         }
+
 
         .footerButton:hover {
             text-decoration: underline;
@@ -156,17 +191,18 @@
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
         }
 
-        a {
-            color: indianred;
-        }
-
-        a:hover {
-            color: brown;
-        }
-
+        a,
         a:visited {
             color: indianred;
+            text-decoration: none;
         }
+
+        a:hover,
+        a:visited:hover {
+            color: brown;
+            text-decoration: underline;
+        }
+
 
         @media (max-width: 1200px) {
 
@@ -245,10 +281,17 @@
 <body>
 
     <div id="connectionInfo">
-        <div id="title">Welcome to Whale Sounds.org!</div>
-        <div id="userCount">Connected Users: <span id="userCountValue">0</span></div>
-        <div id="output"></div>
+        <div id="connInfoBG">
+            <div id="title">Welcome to Whale Sounds.org!</div>
+            <div id="userCount">Connected Users: <span id="userCountValue">0</span></div>
+            <div id="output"></div>
+        </div>
+        <div><span id="hideButton"><img src="/static/up-lighter2.svg" alt="hide ui"
+                    style="width: 16px; height: 16px;"></span>
+        </div>
     </div>
+
+
 
     <div class="background-container">
         <div class="background-image" id="backgroundImage"></div>
@@ -258,14 +301,23 @@
         <p id="aboutInfo" style="display: none;"><span style="font-weight: bold;">About</span><br><br>Welcome to whale
             sounds. See how many other people are listening with you!</p>
         <p id="imageInfo" style="display: none;">imageInfo</p>
-        <p id="audioInfo" style="display: none;"><span style="font-weight: bold;">Audio Info</span><br></p>
+        <p id="audioInfo" style="display: none;"><span style="font-weight: bold;">Audio Info</span><br><br>
+            Audio recording <a href="https://freesound.org/people/MBARI_MARS/sounds/403406/" target="_blank">Humpback
+                whale</a> by <a href="https://freesound.org/people/MBARI_MARS/" target="_blank">MBARI_MARS</a><br>
+            <span style="font-size: 12px"><a href="https://creativecommons.org/licenses/by-nc/4.0/"
+                    target="_blank">Attribution
+                    NonCommercial 4.0</a>
+            </span>
+            <br>
+
+        </p>
         <p id="closeButton" onclick="closeInfoBox()">close</p>
     </div>
 
     <div id="footer">
         <!-- ▶ ⏵-->
         <div id="customAudioPlayer"
-            style="padding-top: 0.4em; padding-bottom: 0.6em; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            style="padding-top: 0.4em; padding-bottom: 0.55em; display: flex; align-items: center; justify-content: center; gap: 15px;">
             <button id="playPauseButton" style="
             width: 32px; 
             height: 32px; 
@@ -333,6 +385,33 @@
             const secs = Math.floor(seconds % 60);
             return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
         }
+    </script>
+
+    <script>
+        // Add this at the start of your window.onload function:
+        const hideButton = document.getElementById('hideButton');
+        const connectionInfo = document.getElementById('connectionInfo');
+        const footer = document.getElementById('footer');
+        let isHidden = false;
+
+        hideButton.addEventListener('click', () => {
+            isHidden = !isHidden;
+
+            // Hide/show elements
+            connectionInfo.classList.toggle('hidden');
+            footer.classList.toggle('hidden');
+
+            // Close info box if it's open
+            const infoBox = document.getElementById('infoBox');
+            if (infoBox.style.display !== 'none') {
+                infoBox.style.display = 'none';
+            }
+
+            // Rotate the hide button icon
+            const hideButtonImg = hideButton.querySelector('img');
+            hideButtonImg.style.transform = isHidden ? 'rotate(180deg)' : 'rotate(0deg)';
+            hideButtonImg.style.transition = 'transform 0.3s ease';
+        });
     </script>
 
     <script>

@@ -234,12 +234,55 @@
     </div>
 
     <div id="footer">
+        <!-- ▶ ⏵-->
+        <div id="customAudioPlayer"
+            style="padding: 10px; display: flex; align-items: center; justify-content: center; gap: 15px;">
+            <button id="playPauseButton" style="color: #3d3d3d;">►</button> 
+            <span><span id="currentTime">0:00</span> / <span id="duration">0:00</span></span>
+            <!-- <span style="text-decoration: underline;">new section ⏵</span> -->
+        </div>
+        <audio id="audioElement" style="display: none;">
+            <source id="audioSource" src="/static/song/humpback-01.m4a" type="audio/mpeg">
+            Your browser does not support the audio element.
+        </audio>
+
         <p>
             <span class="footerButton" onclick="toggleInfoBox('aboutInfo')">About</span>&nbsp;&nbsp;
             <span class="footerButton" onclick="toggleInfoBox('imageInfo')">Image Info</span>&nbsp;&nbsp;
             <span class="footerButton" onclick="toggleInfoBox('audioInfo')">Audio Info</span>
         </p>
     </div>
+
+    <script>
+        const audioElement = document.getElementById('audioElement');
+        const playPauseButton = document.getElementById('playPauseButton');
+        const currentTimeDisplay = document.getElementById('currentTime');
+        const durationDisplay = document.getElementById('duration');
+
+        playPauseButton.addEventListener('click', () => {
+            if (audioElement.paused) {
+                audioElement.play();
+                playPauseButton.textContent = 'II';
+            } else {
+                audioElement.pause();
+                playPauseButton.textContent = '►';
+            }
+        });
+
+        audioElement.addEventListener('timeupdate', () => {
+            currentTimeDisplay.textContent = formatTime(audioElement.currentTime);
+        });
+
+        audioElement.addEventListener('loadedmetadata', () => {
+            durationDisplay.textContent = formatTime(audioElement.duration);
+        });
+
+        function formatTime(seconds) {
+            const minutes = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${minutes}:${secs < 10 ? '0' : ''}${secs}`;
+        }
+    </script>
 
     <script>
         // INFOBOX TOGGLE
@@ -384,13 +427,11 @@
             const changeImageInfoBox = (filename) => {
                 let imageParagraph = document.getElementById('imageInfo');
                 const imgInfo = imageInfo[filename]
-                // attribution
                 imageParagraph.innerHTML = `<span style='font-weight: bold;'>Image Info</span><br><br>
-                    Photographer: <a href="${imgInfo.photographerLink}" target="_blank">${imgInfo.photographer}</a><br>
-                    <a href="${imgInfo.unsplashLink}" target="_blank">View on Unsplash</a><br>
-                    <a href="https://unsplash.com/license" target="_blank">Unsplash License</a>
+                    Photo by <a href="${imgInfo.photographerLink}" target="_blank">${imgInfo.photographer}</a> on 
+                    <a href="${imgInfo.unsplashLink}" target="_blank">Unsplash</a><br>
+                    <a href="https://unsplash.com/license" target="_blank">License</a>
                 `
-
             }
 
             const changeBackgroundImage = () => {

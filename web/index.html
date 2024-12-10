@@ -40,6 +40,12 @@
             background-position: center;
             background-repeat: no-repeat;
             animation: zoomEffect 90s ease-in-out infinite;
+            opacity: 1;
+            transition: opacity 1s ease;
+        }
+
+        .background-image.fade {
+            opacity: 0;
         }
 
         @keyframes zoomEffect {
@@ -565,14 +571,20 @@
             }
 
             const changeBackgroundImage = () => {
-                backgroundImage.style.backgroundImage = `url('${images[currentIndex]}')`;
-                document.body.style.backgroundColor = darkAverageColors[currentIndex];
-                console.log("changing image to:", images[currentIndex]);
-                currentIndex = (currentIndex + 1) % images.length;
+                backgroundImage.classList.add('fade');
 
-                // change imageInfo text
-                var filename = images[currentIndex].split('/').pop();
-                changeImageInfoBox(filename)
+                setTimeout(() => {
+                    backgroundImage.style.backgroundImage = `url('${images[currentIndex]}')`;
+                    document.body.style.backgroundColor = darkAverageColors[currentIndex];
+                    console.log("changing image to:", images[currentIndex]);
+
+                    // change imageInfo text
+                    var filename = images[currentIndex].split('/').pop();
+                    changeImageInfoBox(filename)
+
+                    currentIndex = (currentIndex + 1) % images.length;
+                    backgroundImage.classList.remove('fade');
+                }, 1000); // 1s
             };
 
             // Preload all images

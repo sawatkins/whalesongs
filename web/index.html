@@ -316,17 +316,20 @@
     <div class="vignette"></div>
 
     <div id="infoBox" style="display: none;">
-        <p id="aboutInfo" style="display: none;"><span style="font-weight: bold;">About</span><br><br><strong>Listen to the soothing sounds of whales. </strong><br><br> See how many others are here with you!</p>
+        <p id="aboutInfo" style="display: none;"><br><strong>Listen to the calming sounds of whales. </strong><br><br>
+            See how many others are here with you!</p>
         <p id="imageInfo" style="display: none;">imageInfo</p>
-        <p id="audioInfo" style="display: none;"><span style="font-weight: bold;">Audio Info</span><br><br>
+        <p id="audioInfo" style="display: none;"><br>
             Audio recording <a href="https://freesound.org/people/MBARI_MARS/sounds/403406/" target="_blank">Humpback
                 whale</a> by <a href="https://freesound.org/people/MBARI_MARS/" target="_blank">MBARI_MARS</a><br>
             <span style="font-size: 12px"><a href="https://creativecommons.org/licenses/by-nc/4.0/"
                     target="_blank">Attribution
                     NonCommercial 4.0</a>
             </span>
-            <br>
-
+            <br><br>
+            <a
+                href="https://www.mbari.org/technology/monterey-accelerated-research-system-mars/"
+                target="_blank">Learn more</a> about the Monterey Accelerated Research System (MARS) hydrophone.
         </p>
         <p id="closeButton" onclick="closeInfoBox()">close</p>
     </div>
@@ -363,8 +366,8 @@
 
         <p>
             <span class="footerButton" onclick="toggleInfoBox('aboutInfo')">About</span>&nbsp;&nbsp;
-            <span class="footerButton" onclick="toggleInfoBox('imageInfo')">Image Info</span>&nbsp;&nbsp;
-            <span class="footerButton" onclick="toggleInfoBox('audioInfo')">Audio Info</span>
+            <span class="footerButton" onclick="toggleInfoBox('imageInfo')">Photos</span>&nbsp;&nbsp;
+            <span class="footerButton" onclick="toggleInfoBox('audioInfo')">Sounds</span>
         </p>
     </div>
 
@@ -574,7 +577,7 @@
             const changeImageInfoBox = (filename) => {
                 let imageParagraph = document.getElementById('imageInfo');
                 const imgInfo = imageInfo[filename]
-                imageParagraph.innerHTML = `<span style='font-weight: bold;'>Image Info</span><br><br>
+                imageParagraph.innerHTML = `<br>
                     Photo by <a href="${imgInfo.photographerLink}" target="_blank">${imgInfo.photographer}</a> on 
                     <a href="${imgInfo.unsplashLink}" target="_blank">Unsplash</a><br>
                     <a href="https://unsplash.com/license" target="_blank" style="font-size: 12px">Unsplash License</a>

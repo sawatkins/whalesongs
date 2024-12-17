@@ -308,16 +308,23 @@
         </div>
     </div>
 
-
-
     <div class="background-container">
         <div class="background-image" id="backgroundImage"></div>
     </div>
     <div class="vignette"></div>
 
-    <div id="infoBox" style="display: none;">
-        <p id="aboutInfo" style="display: none;"><br><strong>Listen to the calming sounds of whales. </strong><br><br>
+    <div id="infoBox">
+        <p id="welcomeInfo"><br><strong>Listen to the calming sounds of whales. </strong><br><br>
             See how many others are here with you!</p>
+        <p id="aboutInfo" style="display: none;">
+            <br><strong>Listen to the calming sounds of whales. </strong><br><br>
+            See how many others are here with you!<br><br>
+            This site streams real humpback whale recordings from the Monterey Bay in California.
+            I hope you enjoy a peaceful time here.<br><br>
+            Inspired by <a href="https://www.tree.fm" target="_blank">tree.fm</a><br><br>
+            Built with Go, WebSockets, and vanilla JavaScript.
+            Visit <a href="https://github.com/sawatkins/whalesounds" target="_blank">Github</a> to report bugs<br>
+        </p>
         <p id="imageInfo" style="display: none;">imageInfo</p>
         <p id="audioInfo" style="display: none;"><br>
             Audio recording <a href="https://freesound.org/people/MBARI_MARS/sounds/403406/" target="_blank">Humpback
@@ -327,9 +334,8 @@
                     NonCommercial 4.0</a>
             </span>
             <br><br>
-            <a
-                href="https://www.mbari.org/technology/monterey-accelerated-research-system-mars/"
-                target="_blank">Learn more</a> about the Monterey Accelerated Research System (MARS) hydrophone.
+            <a href="https://www.mbari.org/technology/monterey-accelerated-research-system-mars/" target="_blank">Learn
+                more</a> about the Monterey Accelerated Research System (MARS) hydrophone.
         </p>
         <p id="closeButton" onclick="closeInfoBox()">close</p>
     </div>
@@ -439,6 +445,10 @@
         function closeInfoBox() {
             const infoBox = document.getElementById('infoBox');
             infoBox.style.display = 'none';
+        }
+
+        function beginButton() {
+
         }
 
         function toggleInfoBox(infoId) {

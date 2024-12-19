@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Whale Songs - Listen to Calming Humpback Whale Songs With Others</title>
     <meta name="title" content="Whale Songs - Listen to Calming Humpback Whale Songs with Others">
-    <meta name="description"
-        content="Listen to the calming songs of the whale. See how many others are here with you!">
+    <meta name="description" content="Listen to the calming songs of the whale. See how many others are here with you!">
     <meta name="keywords"
         content="whale songs, humpback whales, ocean sounds, whale sounds, nature sounds, relaxation, ambient sounds, Monterey Bay">
     <meta name="author" content="sawatkins">
@@ -341,7 +340,8 @@
             I hope you enjoy a peaceful time here.<br><br>
             Inspired by <a href="https://www.tree.fm" target="_blank">tree.fm</a><br><br>
             Built with Go, WebSockets, and vanilla JavaScript.
-            Visit <a href="https://github.com/sawatkins/whalesounds" target="_blank">Github</a> to report bugs<br><br>More features to come. 
+            Visit <a href="https://github.com/sawatkins/whalesounds" target="_blank">Github</a> to report
+            bugs<br><br>More features to come.
         </p>
         <p id="imageInfo" style="display: none;">imageInfo</p>
         <p id="audioInfo" style="display: none;"><br>
@@ -493,7 +493,8 @@
             console.log("supports websockets");
             var output = document.getElementById("output");
             var userCount = document.getElementById("userCountValue");
-            var socket = new WebSocket("ws://" + document.location.host + "/ws");
+            var wsProtocol = window.location.protocol === 'https:' ? 'wss://' : 'ws://';
+            var socket = new WebSocket(wsProtocol + document.location.host + "/ws");
 
             socket.onopen = function () {
                 output.innerHTML = "Status: Connected\n";

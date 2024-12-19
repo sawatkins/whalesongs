@@ -1,4 +1,4 @@
-module github.com/sawatkins/whalesounds
+module github.com/sawatkins/whalesongs
 
 go 1.21.0
 
